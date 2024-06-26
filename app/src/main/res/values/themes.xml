@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.AndroidStudio2DGame" parent="Base.Theme.AndroidStudio2DGame" />
+
+    <!-- Fullscreen theme. -->
+    <style name="Theme.AndroidStudio2DGame.FullScreen" parent="Base.Theme.AndroidStudio2DGame">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>
