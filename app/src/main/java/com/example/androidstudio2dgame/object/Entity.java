@@ -6,12 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 /**
- * Character is an abstract class whichimplements a draw method from GameObject
+ * Entity is an abstract class which implements a draw method from GameObject
  * */
-public abstract class Character extends GameObject {
+public abstract class Entity extends GameObject {
     protected Bitmap bitmap;
 
-    public Character(Context context, double positionX, double positionY){
+    public Entity(Context context, double positionX, double positionY){
         super(positionX, positionY);
     }
 
@@ -20,7 +20,8 @@ public abstract class Character extends GameObject {
         return new Rect((int)positionX, (int)positionY, (int)positionX + bitmap.getWidth(), (int)positionY + bitmap.getHeight());
     }
 
-    public static boolean isColliding(Character obj1, Character obj2){
+    //Collision check
+    public static boolean isColliding(Entity obj1, Entity obj2){
         return Rect.intersects(obj1.getBounds(), obj2.getBounds());
     }
 

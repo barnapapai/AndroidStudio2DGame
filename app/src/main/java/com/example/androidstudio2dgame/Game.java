@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.example.androidstudio2dgame.object.Enemy;
+import com.example.androidstudio2dgame.object.Entity;
 import com.example.androidstudio2dgame.object.Player;
 
 import java.util.ArrayList;
@@ -134,7 +135,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         //Check for collision
         Iterator<Enemy> iteratorEnemy = enemyList.iterator();
         while(iteratorEnemy.hasNext()){
-            if (Character.isColliding(iteratorEnemy.next(), player)){
+            if (Entity.isColliding(iteratorEnemy.next(), player)){
                 iteratorEnemy.remove();
             }
         }

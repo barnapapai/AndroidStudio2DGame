@@ -3,13 +3,14 @@ package com.example.androidstudio2dgame.object;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+
 import com.example.androidstudio2dgame.GameLoop;
 import com.example.androidstudio2dgame.R;
 
 /**
  * Enemy is a character which always moves in the direction of the player.
  * */
-public class Enemy extends Character{
+public class Enemy extends Entity {
     private static final double SPEED_PIXELS_PER_SECOND = Player.SPEED_PIXELS_PER_SECOND*0.6;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
     private static final double SPWANS_PER_MINUTE = 20;

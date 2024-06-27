@@ -10,7 +10,7 @@ import com.example.androidstudio2dgame.R;
 /**
  * Player is the main character of the game
  */
-public class Player extends Character{
+public class Player extends Entity {
     public static final double SPEED_PIXELS_PER_SECOND = 400.0;
     public static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
     private final Joystick joystick;
