@@ -8,7 +8,7 @@ import com.example.androidstudio2dgame.Joystick;
 import com.example.androidstudio2dgame.R;
 
 /**
- * Playre is the main character of the game
+ * Player is the main character of the game
  */
 public class Player extends Character{
     public static final double SPEED_PIXELS_PER_SECOND = 400.0;

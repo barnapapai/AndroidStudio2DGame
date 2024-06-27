@@ -13,6 +13,10 @@ import androidx.core.content.ContextCompat;
 import com.example.androidstudio2dgame.object.Enemy;
 import com.example.androidstudio2dgame.object.Player;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 /**
  * Game manages all objects in the game and is responsible for updating all states and render
@@ -22,7 +26,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Joystick joystick;
     private final Player player;
     private GameLoop gameLoop;
-    private final Enemy enemy;
+
+    private List<Enemy> enemyList = new ArrayList<Enemy>();
+    //private final Enemy enemy;
 
     public Game(Context context) {
         super(context);
@@ -36,7 +42,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         //Initialiye player
         joystick = new Joystick(275, 700, 70, 40);
         player = new Player(getContext(), joystick, 2*500, 500);
-        enemy = new Enemy(getContext(), player, 500, 200);
+        //enemy = new Enemy(getContext(), player, 500, 200);
 
         setFocusable(true);
     }
@@ -88,7 +94,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         joystick.draw(canvas);
         player.draw(canvas);
-        enemy.draw(canvas);
+        for(Enemy enemy : enemyList){
+            enemy.draw(canvas);
+        }
     }
 
     public void drawUPS(Canvas canvas){
@@ -112,6 +120,23 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
         joystick.update();
         player.update();
-        enemy.update();
+
+        //Spawn enemy if time to spawn
+        if(Enemy.readyToSpawn()){
+            enemyList.add(new Enemy(getContext(), player));
+        }
+
+        //Update state pf each enemy
+        for (Enemy enemy : enemyList) {
+            enemy.update();
+        }
+
+        //Check for collision
+        Iterator<Enemy> iteratorEnemy = enemyList.iterator();
+        while(iteratorEnemy.hasNext()){
+            if (Character.isColliding(iteratorEnemy.next(), player)){
+                iteratorEnemy.remove();
+            }
+        }
     }
 }
