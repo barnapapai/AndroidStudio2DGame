@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import com.example.androidstudio2dgame.GameLoop;
 import com.example.androidstudio2dgame.Joystick;
 import com.example.androidstudio2dgame.R;
+import com.example.androidstudio2dgame.Utils;
 
 /**
  * Player is the main character of the game
@@ -28,5 +29,13 @@ public class Player extends Entity {
         
         positionX += velocityX;
         positionY += velocityY;
+
+        //update direction
+        if(velocityX != 0 || velocityY != 0){
+            //Normalize velocity to get direction
+            double distance = Utils.getDistanceBetweenPoints(0, 0, velocityX, velocityY);
+            directionX = velocityX/distance;
+            directionY = velocityY/distance;
+        }
     }
 }
