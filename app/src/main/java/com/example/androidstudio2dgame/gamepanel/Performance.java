@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import com.example.androidstudio2dgame.GameLoop;
 import com.example.androidstudio2dgame.R;
 
+
 public class Performance {
     private GameLoop gameLoop;
     private Context context;
