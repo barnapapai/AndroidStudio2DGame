@@ -1,4 +1,4 @@
-package com.example.androidstudio2dgame.object;
+package com.example.androidstudio2dgame.gameobject;
 
 import android.graphics.Canvas;
 
@@ -27,11 +27,11 @@ public  abstract class GameObject {
     public abstract void draw(Canvas canvas);
     public abstract void  update();
 
-    protected double getPositionX() {
+    public double getPositionX() {
         return positionX;
     }
 
-    protected double getPositionY() {
+    public double getPositionY() {
         return positionY;
     }
 

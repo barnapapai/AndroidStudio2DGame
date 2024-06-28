@@ -10,10 +10,13 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.example.androidstudio2dgame.object.Enemy;
-import com.example.androidstudio2dgame.object.Entity;
-import com.example.androidstudio2dgame.object.Player;
-import com.example.androidstudio2dgame.object.Spell;
+import com.example.androidstudio2dgame.gameobject.Enemy;
+import com.example.androidstudio2dgame.gameobject.Entity;
+import com.example.androidstudio2dgame.gameobject.Player;
+import com.example.androidstudio2dgame.gameobject.Spell;
+import com.example.androidstudio2dgame.gamepanel.GameOver;
+import com.example.androidstudio2dgame.gamepanel.Joystick;
+import com.example.androidstudio2dgame.gamepanel.Performance;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,6 +35,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private List<Spell> spellList = new ArrayList<Spell>();
     private int joystickPointerId = 0;
     private int numberOfSpellsToCast = 0;
+    private GameOver gameOver;
+    private Performance performance;
 
     public Game(Context context) {
         super(context);
@@ -42,9 +47,13 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         gameLoop = new GameLoop(this, surfaceHolder);
 
-        //Initialiye player
+        //Initialize game panels
+        performance = new Performance(context, gameLoop);
+        gameOver = new GameOver(context);
         joystick = new Joystick(275, 700, 70, 40);
-        player = new Player(getContext(), joystick, 2*500, 500);
+
+        //Initialiye game objects
+        player = new Player(context, joystick, 2*500, 500);
 
         setFocusable(true);
     }
@@ -104,11 +113,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        drawUPS(canvas);
-        drawFPS(canvas);
 
-        joystick.draw(canvas);
+        //Draw Game Objects
         player.draw(canvas);
+
         for(Enemy enemy : enemyList){
             enemy.draw(canvas);
         }
@@ -116,27 +124,25 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         for (Spell spell : spellList) {
             spell.draw(canvas);
         }
-    }
 
-    public void drawUPS(Canvas canvas){
-        String averageUPS = Double.toString(gameLoop.getAverageUPS());
-        Paint paint = new Paint();
-        int color = ContextCompat.getColor(getContext(), R.color.magenta);
-        paint.setColor(color);
-        paint.setTextSize(50);
-        canvas.drawText("UPS: " + averageUPS, 100, 100, paint);
-    }
+        //Draw game panels
+        joystick.draw(canvas);
+        performance.draw(canvas);
 
-    public void drawFPS(Canvas canvas){
-        String averageFPS = Double.toString(gameLoop.getAverageFPS());
-        Paint paint = new Paint();
-        int color = ContextCompat.getColor(getContext(), R.color.magenta);
-        paint.setColor(color);
-        paint.setTextSize(50);
-        canvas.drawText("FPS: " + averageFPS, 100, 200, paint);
+        //Draw Game over if the player is dead
+        if(player.getHealthPoints() <= 0){
+            gameOver.draw(canvas);
+        }
     }
 
     public void update() {
+
+        //Stop updating the game if the player is dead
+        if(player.getHealthPoints() <= 0){
+            return;
+        }
+
+        //Update game state
         joystick.update();
         player.update();
 

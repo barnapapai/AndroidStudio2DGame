@@ -1,11 +1,12 @@
-package com.example.androidstudio2dgame.object;
+package com.example.androidstudio2dgame.gameobject;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import com.example.androidstudio2dgame.GameLoop;
-import com.example.androidstudio2dgame.Joystick;
+import com.example.androidstudio2dgame.gamepanel.HealthBar;
+import com.example.androidstudio2dgame.gamepanel.Joystick;
 import com.example.androidstudio2dgame.R;
 import com.example.androidstudio2dgame.Utils;
 
